@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="LocalStorage.DocDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:LocalStorage" 
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Height="350" Width="400">
+    <Grid> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Mode="Accent" Padding="6">
+            <DockPanel LastChildFill="True">
+                <Button DockPanel.Dock="Right"
+                    IsCancel="True" Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}"
+                    HorizontalAlignment="Right">
+                    <materialDesign:PackIcon Kind="Close"/>
+                    <Button.CommandParameter>
+                        <system:Boolean>False</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding DialogTitle}"/>
+            </DockPanel>
+        </materialDesign:ColorZone>
+        <StackPanel Margin="20" Grid.Row="1">
+            <Button IsDefault="True" Command="{Binding ChoseFileCommand}" MinWidth="60" Margin="5" Content="{Binding DialogChoseButton}" />
+            <TextBox md:HintAssist.Hint="Название" Text="{Binding DocTitle}" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="0 6 0 0" FontSize="14" Visibility="{Binding DocTitleVisability}"/>
+            <TextBox md:HintAssist.Hint="Описание" Text="{Binding DocDescription}" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="0 16 0 0" FontSize="14" Visibility="{Binding DocDescVisability}"
+                     VerticalAlignment="Top" Height="100" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+        </StackPanel>
+        
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Margin="0, 0, 0, 20">
+            <Button IsDefault="True" Width="110" Margin="5" Command="{x:Static md:DialogHost.CloseDialogCommand}" Content="{Binding DialogAcceptButton}">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button IsCancel="True" Width="110" Margin="5" Command="{x:Static md:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+                Отмена
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
